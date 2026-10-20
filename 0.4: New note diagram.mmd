@@ -1,0 +1,36 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: STATUS 302
+    deactivate server
+    Note right of browser: The server responds with a 302 Found status code, indicating that the note was successfully saved and the browser should redirect to the notes page.
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: status 200 OK, HTML page with notes
+    deactivate server
+    Note right of browser: The browser receives the HTML page with the list of notes and renders it.
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: status 304 Not Modified with CSS file
+    deactivate server
+
+    Note right of browser: The browser checks if the CSS file has changed since the last request. Since it hasn't, the server responds with a 304 Not Modified status code, indicating that the browser can use its cached version of the CSS file.
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: status 304 Not Modified with JavaScript file
+    deactivate server
+
+    Note right of browser: The browser checks if the JavaScript file has changed since the last request. Since it hasn't, the server responds with a 304 Not Modified status code, indicating that the browser can use its cached version of the JavaScript file.
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: status 200 OK with JSON data: [{ "content": "ol8o", "date": "2026-10-20" }, { "content": "", "date": "2026-10-20" }, ... ]
+    deactivate server
+
+    Note right of browser: The browser requests the JSON data containing the list of notes. The server responds with a 200 OK status code and sends the JSON data, which the browser can then use to display the notes to the user.

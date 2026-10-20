@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: GET  https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server-->>browser: STATUS 200 OK, HTML page with SPA
+    deactivate server
+
+    Note right of browser: The server responds with a 200 OK status code, indicating that the SPA page was successfully retrieved.
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: Status 200 OK with CSS file
+    deactivate server
+
+    Note right of browser: The browser requests the CSS file for the SPA page. The server responds with a 200 OK status code and sends the CSS file, which the browser can then use to style the page.
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate server
+    server-->>browser: Status 200 OK with JavaScript file
+    deactivate server
+
+    Note right of browser: The browser requests the JavaScript file for the SPA page. The server responds with a 200 OK status code and sends the JavaScript file, which the browser can then use to add interactivity to the page.
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: Status 200 OK with JSON data: []
+    deactivate server
+
+    Note right of browser: The browser requests the JSON data containing the list of notes. The server responds with a 200 OK status code and sends an empty array, indicating that there are no notes to display.
